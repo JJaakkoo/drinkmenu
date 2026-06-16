@@ -9,14 +9,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* --- VARIABLES & GLOBAL RESETS --- */
         :root {
             --bg-color: #fff;
             --main-text: #1a1a1a;
             --sub-text: #7a7a7a;
             --accent-bg: #f7f7f7;
-            --border-color: #000;
+            --border-color: #000; /* Pure black borders for high contrast */
             --title-font: 'Barlow Condensed', sans-serif;
             --body-font: 'Roboto Mono', monospace;
+        }
+
+        /* Applying border-box globally prevents padding/borders from expanding element widths */
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         body {
@@ -27,26 +33,39 @@
             color: var(--main-text);
         }
 
+        /* --- MAIN LAYOUT CONTAINERS --- */
         .master-wrapper {
             max-width: 1250px; /* Forces wide landscape ratio */
             width: 100%;
             margin: 0 auto;
             border: 2px solid var(--border-color);
-            box-sizing: border-box;
             background-color: var(--bg-color);
         }
 
+        .menu-body-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Exact 50/50 split for left and right columns */
+        }
+
+        /* Right column is a flex column to allow stacking Highballs over Mocktails */
+        .right-stack {
+            display: flex;
+            flex-direction: column;
+            height: 100%; 
+        }
+
+        /* --- HEADER --- */
         .menu-header {
             border-bottom: 2px solid var(--border-color);
             text-align: center;
             padding: 20px 20px 15px;
         }
 
+        /* The secondary line creating the double-border effect under the header */
         .menu-spacer {
             height: 12px;
             border-bottom: 2px solid var(--border-color);
             width: 100%;
-            box-sizing: border-box;
         }
 
         .menu-title {
@@ -64,19 +83,22 @@
             margin-top: 10px;
         }
 
-        .menu-body-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            box-sizing: border-box;
-        }
-
+        /* --- MENU SECTIONS & VERTICAL LABELS --- */
         .menu-section {
             display: flex;
-            box-sizing: border-box;
         }
 
         .menu-section.cocktails {
             border-right: 2px solid var(--border-color);
+        }
+
+        .menu-section.highballs,
+        .menu-section.mocktails {
+            flex: 1; /* Forces both to divide the vertical space EXACTLY 50/50 */
+        }
+
+        .menu-section.highballs {
+            border-bottom: 2px solid var(--border-color);
         }
 
         .vertical-label-container {
@@ -86,7 +108,6 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
-            box-sizing: border-box;
             border-right: 2px solid var(--border-color);
         }
 
@@ -96,15 +117,24 @@
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 4px;
-            transform: rotate(-90deg);
+            transform: rotate(-90deg); /* Flips text on its side */
             white-space: nowrap;
             color: #555;
         }
 
+        /* --- DRINK LISTS & ITEMS --- */
         .item-list {
             flex: 1;
             padding: 20px 45px;
-            box-sizing: border-box;
+        }
+
+        /* Centers content vertically in Highballs and Mocktails so they don't float to the top */
+        .menu-section.highballs .item-list,
+        .menu-section.mocktails .item-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            height: 100%;
         }
 
         .menu-item {
@@ -121,11 +151,10 @@
 
         .item-name-desc {
             flex: 1;
-            margin-right: 30px;
+            margin-right: 30px; /* Breathing room before the measurement numbers */
         }
 
         .item-name {
-            font-family: var(--body-font);
             font-weight: 700;
             text-transform: uppercase;
             font-size: 0.85rem;
@@ -140,13 +169,14 @@
             line-height: 1.4;
         }
 
+        /* Holds the stacked "2" and "OUNCES" */
         .item-measure {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            line-height: 1.1; /* Keeps the stacked text tightly grouped */
+            line-height: 1.1; 
             min-width: 60px; /* Gives a stable box to ensure perfect center alignment */
         }
         
@@ -163,30 +193,7 @@
             color: #555;
         }
 
-        .right-stack {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            box-sizing: border-box;
-        }
-
-        .menu-section.highballs,
-        .menu-section.mocktails {
-            flex: 1; /* Forces both to divide the vertical space EXACTLY 50/50 */
-        }
-
-        .menu-section.highballs {
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .menu-section.highballs .item-list,
-        .menu-section.mocktails .item-list {
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Vertically centers content within their new 50% heights */
-            height: 100%;
-        }
-
+        /* --- HIGHBALLS SPECIFIC --- */
         .recommendations-title {
             font-family: var(--title-font);
             font-size: 1.5rem;
@@ -202,7 +209,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-evenly; /* Spreads them out to perfectly fill vertical space */
-            flex: 1; /* Expands flex box */
+            flex: 1; 
         }
 
         .highball-row {
@@ -212,6 +219,7 @@
             gap: 15px;
         }
 
+        /* Wraps the Spirit Name and the Plus Sign */
         .spirit-wrapper {
             display: flex;
             justify-content: space-between;
@@ -219,7 +227,6 @@
         }
 
         .spirit-name {
-            font-family: var(--body-font);
             font-weight: 700;
             text-transform: uppercase;
             color: #222;
@@ -241,23 +248,30 @@
             text-align: center;
         }
 
+        /* --- MOBILE RESPONSIVE STYLING --- */
         @media (max-width: 768px) {
-            body { padding: 20px 10px; }
-            .menu-title { font-size: 2.5rem; }
-            
-            .menu-body-wrapper {
-                grid-template-columns: 1fr;
+            body { 
+                padding: 20px 10px; 
             }
-
-            .menu-section.cocktails { border-right: none; border-bottom: 2px solid var(--border-color); }
+            .menu-title { 
+                font-size: 2.5rem; 
+            }
+            .menu-body-wrapper {
+                grid-template-columns: 1fr; /* Stacks the two columns */
+            }
+            
+            .menu-section.cocktails { 
+                border-right: none; 
+                border-bottom: 2px solid var(--border-color); 
+            }
             
             .menu-section {
-                flex-direction: column;
+                flex-direction: column; /* Flips the vertical labels to be horizontal headers */
             }
 
             .menu-section.highballs,
             .menu-section.mocktails {
-                flex: none; /* Disables flex stretch on mobile */
+                flex: none; /* Disables the 50/50 flex stretch on mobile */
             }
 
             .vertical-label-container {
@@ -268,7 +282,7 @@
             }
 
             .vertical-text {
-                transform: none;
+                transform: none; /* Disables the 90deg text rotation */
                 text-align: center;
                 letter-spacing: 4px;
             }
@@ -277,7 +291,7 @@
                 padding: 20px 15px;
             }
 
-            /* Specific mobile overrides for centering the Mocktails section */
+            /* Mobile overrides for centering the Mocktails section specifically */
             .menu-section.mocktails .menu-item {
                 justify-content: center;
                 text-align: center;
@@ -294,6 +308,7 @@
                 margin-bottom: 20px;
             }
 
+            /* Simplifies the Highball row layout for narrow screens */
             .highball-row {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -303,8 +318,7 @@
             }
             .highball-row:last-child { border-bottom: none; }
             .spirit-wrapper { justify-content: center; }
-            .spirit-name { font-weight: 700; }
-            .plus-sign { display: none; }
+            .plus-sign { display: none; } /* Plus sign unnecessary on mobile stack */
         }
     </style>
 </head>
@@ -318,19 +332,20 @@
             <p class="menu-subtitle">Cocktails, Highballs, and Mocktails</p>
         </div>
         
-        <!-- Spacer Gap -->
+        <!-- Double Border Spacer Gap -->
         <div class="menu-spacer"></div>
 
-        <!-- Body wrapper with landscape 2-column grid -->
+        <!-- Body wrapper establishing the landscape 2-column grid -->
         <div class="menu-body-wrapper">
 
             <!-- Left Column: Cocktails Section -->
             <div class="menu-section cocktails">
-                <!-- Vertical Label Container -->
+                <!-- Vertical Header -->
                 <div class="vertical-label-container">
                     <span class="vertical-text">COCKTAILS</span>
                 </div>
                 
+                <!-- Items List -->
                 <div class="item-list">
                     <div class="menu-item">
                         <div class="item-name-desc">
@@ -356,7 +371,7 @@
 
                     <div class="menu-item">
                         <div class="item-name-desc">
-                            <div class="item-name">Sourkey*</div>
+                            <div class="item-name">Sourkey</div>
                             <div class="item-desc">sour lemon and sprite with sour key gummy, vodka and triple sec</div>
                         </div>
                         <div class="item-measure">
@@ -422,7 +437,7 @@
 
                     <div class="menu-item">
                         <div class="item-name-desc">
-                            <div class="item-name">Spiceberry*</div>
+                            <div class="item-name">Spiceberry</div>
                             <div class="item-desc">sweet pineapple and cranberry with spiced rum</div>
                         </div>
                         <div class="item-measure">
@@ -433,7 +448,7 @@
 
                     <div class="menu-item">
                         <div class="item-name-desc">
-                            <div class="item-name">Peachy Soju*</div>
+                            <div class="item-name">Peachy Soju</div>
                             <div class="item-desc">sweet peach juice with peach gummy and peach soju</div>
                         </div>
                         <div class="item-measure">
@@ -449,7 +464,7 @@
                 
                 <!-- Top Right: Highballs Recommendations Section -->
                 <div class="menu-section highballs">
-                    <!-- Vertical Label Container -->
+                    <!-- Vertical Header -->
                     <div class="vertical-label-container">
                         <span class="vertical-text">HIGHBALLS</span>
                     </div>
@@ -487,11 +502,12 @@
 
                 <!-- Bottom Right: Mocktails Section -->
                 <div class="menu-section mocktails">
-                    <!-- Vertical Label Container -->
+                    <!-- Vertical Header -->
                     <div class="vertical-label-container">
                         <span class="vertical-text">MOCKTAILS</span>
                     </div>
                     
+                    <!-- Items List -->
                     <div class="item-list">
                         <div class="menu-item">
                             <div class="item-name-desc">
@@ -516,7 +532,7 @@
 
                         <div class="menu-item">
                             <div class="item-name-desc">
-                                <div class="item-name">Virgin Spiceberry*</div>
+                                <div class="item-name">Virgin Spiceberry</div>
                                 <div class="item-desc">pineapple and cranberry</div>
                             </div>
                         </div>
