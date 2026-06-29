@@ -155,6 +155,7 @@
         }
 
         .item-name {
+            font-family: var(--body-font);
             font-weight: 700;
             text-transform: uppercase;
             font-size: 0.85rem;
@@ -167,18 +168,17 @@
             font-size: 0.85rem;
             color: var(--sub-text);
             line-height: 1.4;
+            max-width: 80%; /* Shrinks the text box so it wraps earlier */
         }
 
-        /* Holds the stacked "2" and "OUNCES" */
-        .item-measure {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            line-height: 1.1; 
-            min-width: 60px; /* Gives a stable box to ensure perfect center alignment */
+        .star-icon {
+            color: #f2a900; /* Warm gold color */
+            font-size: 0.95rem;
+            margin-left: 6px;
+            display: inline-block;
         }
+
+        /* --- DRINK MEASUREMENTS --- */
         
         .measure-val {
             font-size: 1rem;
@@ -346,13 +346,13 @@
                 </div>
                 
                 <!-- Items List -->
-                <div class="item-list">
-                    <div class="menu-item">
-                        <div class="item-name-desc">
-                            <div class="item-name">Mango Breeze</div>
-                            <div class="item-desc">sweet mangos and oranges, with vodka and triple sec</div>
-                        </div>
-                        <div class="item-measure">
+            <div class="item-list">
+                <div class="menu-item">
+                    <div class="item-name-desc">
+                        <div class="item-name">Mango Breeze <span class="star-icon">★</span></div>
+                        <div class="item-desc">sweet mangos and oranges, with vodka and triple sec</div>
+                    </div>
+                    <div class="item-measure">
                             <span class="measure-val">2</span>
                             <span class="measure-unit">OUNCES</span>
                         </div>
@@ -371,7 +371,7 @@
 
                     <div class="menu-item">
                         <div class="item-name-desc">
-                            <div class="item-name">Sourkey</div>
+                            <div class="item-name">Sourkey <span class="star-icon">★</span></div>
                             <div class="item-desc">sour lemon and sprite with sour key gummy, vodka and triple sec</div>
                         </div>
                         <div class="item-measure">
@@ -448,11 +448,22 @@
 
                     <div class="menu-item">
                         <div class="item-name-desc">
-                            <div class="item-name">Peachy Soju</div>
+                            <div class="item-name">Peachy Soju <span class="star-icon">★</span></div>
                             <div class="item-desc">sweet peach juice with peach gummy and peach soju</div>
                         </div>
                         <div class="item-measure">
                             <span class="measure-val">2</span>
+                            <span class="measure-unit">OUNCES</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-name-desc">
+                            <div class="item-name">Lemon Drop Martini</div>
+                            <div class="item-desc">sweet and sour lemon drops with vodka and triple sec</div>
+                        </div>
+                        <div class="item-measure">
+                            <span class="measure-val">1.5</span>
                             <span class="measure-unit">OUNCES</span>
                         </div>
                     </div>
